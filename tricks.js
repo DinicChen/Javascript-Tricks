@@ -159,3 +159,30 @@ var max = a.reduce(function(x,y) { return (x>y)?x:y; }); // 求最大值
 var objects = [{x:1,a:1}, {y:2,a:2}, {z:3,a:3}];
 var leftunion = objects.reduce(union);       // {x:1, y:2, z:3, a:1}
 var rightunion = objects.reduceRight(union); // {x:1, y:2, z:3, a:3}
+
+
+// 在数组中查找所有出现的x，并返回一个包含匹配索引的数组
+function findall(a, x) {
+    var results = [],            // 将会返回的数组
+        len = a.length,          // 待搜索数组的长度
+        pos = 0;                 // 开始搜索的位置
+    while(pos < len) {           // 循环搜索多个元素...
+        pos = a.indexOf(x, pos); // 搜索
+        if (pos === -1) break;   // 未找到，就完成搜索
+        results.push(pos);       // 否则，在数组中存储索引
+        pos = pos + 1;           // 并从下一个位置开始搜索
+    }
+    return results;              // 返回包含索引的数组
+}
+
+
+/*
+ * 判断一个对象是否为数组
+ */
+// ECMAScript5
+Array.isArray()
+// ECMAScript3
+var isArray = Function.isArray || function(o) {
+    return typeof o === "object" &&
+    Object.prototype.toString.call(o) === "[object Array]";
+};
