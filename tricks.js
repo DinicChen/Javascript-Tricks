@@ -209,3 +209,77 @@ function isArrayLike(o) {
 
 //定义并调用一个函数来确定当前脚本运行时是否为严格模式
 var strict = (function() { return !this; }());
+
+
+// 闭包实现的计数器
+function counter() {
+    var n = 0;
+    return {
+        count: function() { return n++; },
+        reset: function() { n = 0; }
+    };
+}
+var c = counter(), d = counter();       // 创建两个计数器
+c.count()                               // => 0
+d.count()                               // => 0: 它们互不干扰
+c.reset()                               // reset() 和 count() 方法共享状态
+c.count()                               // => 0: 因为我们重置了c
+d.count()                               // => 1: 而没有重置d
+
+
+// 这个函数使用arguments.callee，因此它不能在严格模式下工作
+function check(args) {
+    var actual = args.length;           //实参的真实个数
+    var expected = args.callee.length;  //期望的实参个数
+    if (actual !== expected)            //如果不同则抛出异常
+        throw Error("Expected " + expected + "args; got " + actual);
+}
+function f(x, y, z) {
+    check(arguments);   // 检查实参个数和期望的实参个数是否一致
+    return x + y + z;   // 再执行函数的后续逻辑
+}
+
+// monkey-patching
+// 将对象o中名为m()的方法替换为另一个方法
+// 可以在调用原始的方法之前和之后记录日志消息
+function trace(o, m) {
+    var original = o[m];        //在闭包中保存原始方法
+    o[m] = function() {         // 定义新的方法
+        console.log(new Date(), "Entering:", m);        //输出日志消息
+        var result = original.apply(this, arguments);   // 调用原始函数
+        console.log(new Date(), "Exiting:", m);         //输出日志消息
+        return result;                                  // 返回结果
+    };
+}
+
+
+// 返回一个函数，通过调用它来调用o中的方法f()，传递它所有的实参
+function bind(f, o) {
+    if (f.bind) return f.bind(o);       // 如果bind()方法存在的话，使用bind()方法
+    else return function() {            //否则，这样绑定
+        return f.apply(o, arguments);
+    };
+}
+
+// ECMAScript 3版本的Function.bind（）方法
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function(o /*, args */) {
+        // 将this和arguments的值保存至变量中
+        // 以便在后面嵌套的函数中可以使用它们
+        var self = this, boundArgs = arguments;
+        // bind()方法的返回值是一个函数
+        return function() {
+                // 创建一个实参列表，将传入bind()的第二个及后续的实参都传入这个函数
+                var args = [], i;
+                for(i = 1; i < boundArgs.length; i++) args.push(boundArgs[i]);
+                for(i = 0; i < arguments.length; i++) args.push(arguments[i]);
+                // 现在将self作为o的方法来调用，传入这些实参
+                return self.apply(o, args);
+         };
+    };
+}
+
+// 检测一个对象是否是真正的函数对象，而非可调用对象（callable object）
+function isFunction(x) {
+    return Object.prototype.toString.call(x) === "[object Function]";
+}
