@@ -285,3 +285,8 @@ function isFunction(x) {
 }
 
 
+//一种取得 Global 对象的方法是使用以下代码： 
+ 
+var global = function(){ 
+    return this;  
+}(); 
