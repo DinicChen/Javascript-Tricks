@@ -283,3 +283,5 @@ if (!Function.prototype.bind) {
 function isFunction(x) {
     return Object.prototype.toString.call(x) === "[object Function]";
 }
+
+
