@@ -294,3 +294,10 @@ var global = function(){
 //要找到数组中的最大或最小值，可以像下面这样使用 apply()方法。 
 var values = [1, 2, 3, 4, 5, 6, 7, 8]; 
 var max = Math.max.apply(Math, values); 
+
+// 确定属性到底是存在于对象中，还是存在于
+原型中，如下所示。 
+ 
+function hasPrototypeProperty(object, name){ 
+    return !object.hasOwnProperty(name) && (name in object); 
+} 
