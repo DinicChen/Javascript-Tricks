@@ -285,19 +285,25 @@ function isFunction(x) {
 }
 
 
-//一种取得 Global 对象的方法是使用以下代码： 
- 
+// 一种取得 Global 对象的方法是使用以下代码： 
 var global = function(){ 
     return this;  
 }(); 
 
-//要找到数组中的最大或最小值，可以像下面这样使用 apply()方法。 
+
+
+// 要找到数组中的最大或最小值，可以像下面这样使用 apply()方法。 
 var values = [1, 2, 3, 4, 5, 6, 7, 8]; 
 var max = Math.max.apply(Math, values); 
 
-// 确定属性到底是存在于对象中，还是存在于
-原型中，如下所示。 
- 
+
+
+// 确定属性到底是存在于对象中，还是存在于原型中，如下所示。 
 function hasPrototypeProperty(object, name){ 
     return !object.hasOwnProperty(name) && (name in object); 
 } 
+
+
+// 跨浏览器取得窗口左边和上边的位置。
+var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
+var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
