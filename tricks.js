@@ -354,3 +354,13 @@ function getQueryStringArgs(){
 
 	return args;
 }
+
+// 在浏览器环境下测试任何对象的某个特性是否
+存在
+//作者：Peter Michaux 
+function isHostMethod(object, property) { 
+  var t = typeof object[property]; 
+  return t=='function' || 
+         (!!(t=='object' && object[property])) || 
+          t=='unknown'; 
+} 
