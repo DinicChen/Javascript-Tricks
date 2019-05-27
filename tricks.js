@@ -307,3 +307,17 @@ function hasPrototypeProperty(object, name){
 // 跨浏览器取得窗口左边和上边的位置。
 var leftPos = (typeof window.screenLeft == "number") ? window.screenLeft : window.screenX;
 var topPos = (typeof window.screenTop == "number") ? window.screenTop : window.screenY;
+
+
+// 取得页面视口的大小
+var pageWidth = window.innerWidth, pageHeight = window.innerHeight;
+
+if (typeof pageWidth != "number"){
+	if (document.compatMode == "CSS1Compat"){
+		pageWidth = document.documentElement.clientWidth;
+		pageHeight = document.documentElement.clientHeight;
+	} else {
+		pageWidth = document.body.clientWidth;
+		pageHeight = document.body.clientHeight;
+	}
+}
