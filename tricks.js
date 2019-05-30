@@ -547,3 +547,18 @@ var client = function(){
     };
 
 }();
+
+
+// 将 NodeList 对象转换为数组
+function convertToArray(nodes){
+	var array = null;
+	try {
+		array = Array.prototype.slice.call(nodes, 0); //针对非 IE 浏览器
+	} catch (ex) {
+		array = new Array();
+		for (var i = 0, len = nodes.length; i < len; i++){
+			array.push(nodes[i]);
+		}
+	}
+	return array;
+}
