@@ -571,3 +571,23 @@ function loadScript(url){
     script.src = url;
     document.body.appendChild(script);
 }
+
+
+//通用的contains函数,某个节点是不是另一个节点的后代
+function contains(refNode, otherNode){ 
+    if (typeof refNode.contains == "function" && (!client.engine.webkit || client.engine.webkit >= 522)){
+        return refNode.contains(otherNode);
+    } else if (typeof refNode.compareDocumentPosition == "function"){
+        return !!(refNode.compareDocumentPosition(otherNode) & 16);
+    } else {
+        var node = otherNode.parentNode;
+        do {
+            if (node === refNode){
+                return true;
+            } else {
+                node = node.parentNode;
+            }
+        } while (node !== null);
+        return false;
+    }
+}
