@@ -562,3 +562,12 @@ function convertToArray(nodes){
 	}
 	return array;
 }
+
+
+//动态加载外部脚本
+function loadScript(url){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = url;
+    document.body.appendChild(script);
+}
