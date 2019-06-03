@@ -599,3 +599,7 @@ function classof(o) {
     if (o === undefined) return "Undefined";
     return Object.prototype.toString.call(o).slice(8, -1);
 }
+
+
+//压缩稀疏数组
+var dense = sparse.filter(function() { return true; });
