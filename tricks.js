@@ -633,3 +633,7 @@ o.length >= 0 && // o.length为非负值
     else
         return false; // 否则它不是
 }
+
+
+//定义并调用一个函数来确定当前脚本运行时是否为严格模式
+var strict = (function() { return !this; } ());
