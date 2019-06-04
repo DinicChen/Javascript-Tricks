@@ -680,10 +680,24 @@ console.log(o.getName()); // 得到属性值
 o.setName(0); // 试图设置一个错误类型的值
 
 
-// 返回一个函数，通过调用它来调用o中的方法f()，传递它所有的实参
-function bind(f, o) {
-    if (f.bind) return f.bind(o); // 如果bind()方法存在的话，使用bind()方法
-    else return function() { //否则，这样绑定
-        return f.apply(o, arguments);
+// ECMAscript3 bind()实现
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function(o /*, args */ ) {
+        // 将this和arguments的值保存至变量中
+        // 以便在后面嵌套的函数中可以使用它们
+        var self = this,
+            boundArgs = arguments;
+
+        // bind()方法的返回值是一个函数
+        return function() {
+            // 创建一个实参列表，将传入bind()的第二个及后续的实参都传入这个函数
+            var args = [],
+                i;
+            for (i = 1; i < boundArgs.length; i++) args.push(boundArgs[i]);
+            for (i = 0; i < arguments.length; i++) args.push(arguments[i]);
+
+            // 现在将self作为o的方法来调用，传入这些实参
+            return self.apply(o, args);
+        };
     };
 }
