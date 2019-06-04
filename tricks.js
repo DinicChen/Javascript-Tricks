@@ -747,3 +747,6 @@ var reduce = Array.prototype.reduce ? function(a, f, initial) { //如果reduce()
         }
         return accumulator;
     };
+
+// 实现一个工具函数将类数组对象（或对象）转换为真正的数组
+function array(a, n) { return Array.prototype.slice.call(a, n || 0);}
