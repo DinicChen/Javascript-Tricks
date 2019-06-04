@@ -678,3 +678,12 @@ addPrivateProperty(o, "Name", function(x) { return typeof x == "string"; });
 o.setName("Frank"); // 设置属性值
 console.log(o.getName()); // 得到属性值
 o.setName(0); // 试图设置一个错误类型的值
+
+
+// 返回一个函数，通过调用它来调用o中的方法f()，传递它所有的实参
+function bind(f, o) {
+    if (f.bind) return f.bind(o); // 如果bind()方法存在的话，使用bind()方法
+    else return function() { //否则，这样绑定
+        return f.apply(o, arguments);
+    };
+}
