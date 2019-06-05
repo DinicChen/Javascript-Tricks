@@ -821,3 +821,23 @@ var factorial = memoize(function(n) {
     return (n <= 1) ? 1 : n * factorial(n - 1);
 });
 factorial(5) // => 120.对于4～1的值也有缓存
+
+
+
+// 一个用以定义简单类的函数
+function defineClass(constructor, // 用以设置实例的属性的函数
+    methods, // 实例的方法，复制至原型中
+    statics) // 类属性，复制至构造函数中
+{
+    if (methods) extend(constructor.prototype, methods);
+    if (statics) extend(constructor, statics);
+    return constructor;
+}
+
+// 这是Range类的另一个实现
+var SimpleRange =
+    defineClass(function(f,t) { this.f = f; this.t = t; }, {
+            includes: function(x) { return this.f <= x && x <= this.t;},
+            toString: function() { return this.f + "..." + this.t; }
+        },
+        { upto: function(t) { return new SimpleRange(0, t); } }
