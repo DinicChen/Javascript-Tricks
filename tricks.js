@@ -915,3 +915,13 @@ function quacks(o /*, ... */ ) {
     // 如果程序能执行到这里，说明o实现了所有的方法
     return true;
 }
+
+
+
+// 在不支持async属性的浏览器中异步载入并执行一个指定 URL 中的脚本
+function loadasync(url) {
+    var head = document.getElementsByTagName("head")[0]; // 找到<head>元素
+    var s = document.createElement("script"); // 创建一个<script>元素
+    s.src = url; // 设置其src属性
+    head.appendChild(s); // 将script元素插入head标签中
+}
