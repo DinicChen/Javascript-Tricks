@@ -996,3 +996,22 @@ function urlArgs() {
     }
     return args; // 返回解析后的参数
 }
+
+
+//为客户端嗅探定义browser.name和browser.version，这里使用了jQuery 1.4.1中的代码
+//name和number都是字符串，对于不同的浏览器输出的结果也是不一样的，检测结果如下：
+//
+// "webkit": Safari或Chrome; 版本号是Webkit的版本号
+// "opera": Opera; 版本号就是软件的版本号
+// "mozilla": Firefox或者其他基于gecko内核的浏览器; 版本号是Gecko的版本
+// "msie": IE; 版本号就是软件的版本
+//
+// 比如Firefox 3.6返回: { name: "mozilla", version: "1.9.2" }
+var browser = (function() {
+    var s = navigator.userAgent.toLowerCase();
+    var match = /(webkit)[ \/]([\w.]+)/.exec(s) ||
+        /(opera)(?:.*version)?[ \/]([\w.]+)/.exec(s) ||
+        /(msie) ([\w.]+)/.exec(s) || !/compatible/.test(s) &&
+    /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) || [];
+    return { name: match[1] || "", version: match[2] || "0" };
+}());
