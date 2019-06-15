@@ -1015,3 +1015,19 @@ var browser = (function() {
     /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) || [];
     return { name: match[1] || "", version: match[2] || "0" };
 }());
+
+
+/**
+ * 一个参数，返回元素的textContent或innerText
+ * 两个参数，用value参数的值设置元素的textContent或innerText
+ */
+function textContent(element, value) {
+    var content = element.textContent; // 检测textContent是否有定义
+    if (value === undefined) { // 没传递value，因此返回当前文本
+        if (content !== undefined) return content;
+        else return element.innerText;
+    } else { // 传递了value，因此设置文本
+        if (content !== undefined) element.textContent = value;
+        else element.innerText = value;
+    }
+}
