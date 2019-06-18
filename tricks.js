@@ -1053,3 +1053,11 @@ function textContent(e) {
 function hasPrototypeProperty(object, name){
     return !object.hasOwnProperty(name) && (name in object);
 }
+
+
+
+// 取得窗口左边和上边的位置。
+var leftPos = (typeof window.screenLeft == "number") ?
+                  window.screenLeft : window.screenX;
+var topPos = (typeof window.screenTop == "number") ?
+                  window.screenTop : window.screenY;
