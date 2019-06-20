@@ -1093,3 +1093,20 @@ try {
 if (blocked){ 
     alert("The popup was blocked!"); 
 }
+
+
+// 将NodeList转化为真的数组
+function convertToArray(nodes){
+    var array = null;
+    try {
+        //针对非IE浏览器
+        array = Array.prototype.slice.call(nodes, 0);
+    } catch (ex) {
+        array = new Array();
+        for (var i=0, len=nodes.length; i < len; i++){
+            array.push(nodes[i]);
+        }
+    }
+
+    return array;
+}
