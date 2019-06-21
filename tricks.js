@@ -1110,3 +1110,21 @@ function convertToArray(nodes){
 
     return array;
 }
+
+
+// 动态加载脚本
+function loadScript(url){
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = url;
+    document.body.appendChild(script);
+}
+// 动态加载样式
+function loadStyles(url){
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = url;
+    var head = document.getElementsByTagName("head")[0];
+    head.appendChild(link);
+}
