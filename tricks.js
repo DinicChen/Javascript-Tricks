@@ -1165,3 +1165,14 @@ function setInnerText(element, text){
         element.innerText = text;
     }
 }
+
+
+
+// 跨浏览器向样式表插入规则
+function insertRule(sheet, selectorText, cssText, position){
+    if (sheet.insertRule){
+        sheet.insertRule(selectorText + "{" + cssText + "}", position);
+    } else if (sheet.addRule){
+        sheet.addRule(selectorText, cssText, position);
+    }
+}
