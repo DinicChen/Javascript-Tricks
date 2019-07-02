@@ -1572,3 +1572,11 @@ function curry(fn){
         return fn.apply(null, finalArgs);
     };
 }
+function bind(fn, context){ 
+    var args = Array.prototype.slice.call(arguments, 2); 
+    return function(){
+        var innerArgs = Array.prototype.slice.call(arguments);
+        var finalArgs = args.concat(innerArgs);
+        return fn.apply(context, finalArgs); 
+    };
+}
